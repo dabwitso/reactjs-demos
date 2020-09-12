@@ -1,0 +1,43 @@
+.app {
+    background-image: linear-gradient(to right,#e9abb9, #e86bba);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.para {
+    border: 1px solid black;
+}
+
+.container {
+    background-color: white;
+    border-radius: 30px;
+    height: 540px;
+    width: 340px;
+}
+
+.imageDiv {
+    background-image: url("./assets/banner.jpeg");
+    background-size: cover;
+    height: 35%;
+    width: 100%;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    margin-bottom: 20px;
+}
+
+.main-container {
+    width: 100%;
+}
+
+.todos {
+    align-self: center;
+    background-color: #113b40;
+    width: 90%;
+    height: 40%;
+}
+
+body {
+    text-align: center;
+}
