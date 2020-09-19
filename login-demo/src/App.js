@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { auth } from "./Firebase";
 
@@ -8,47 +8,57 @@ function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
 
-  const login = () => {
-    console.log("logging in");
+  useEffect(() => {
+    if (user) {
+      setUser(user);
+      console.log("logged in");
+    } else {
+      setUser(null);
+    }
+  }, []);
+
+  const login = (e) => {
+    e.preventDefault();
     auth
       .signInWithEmailAndPassword(username, password)
-      .then((response) => {
-        console.log("logged in");
-        console.log(response);
-      })
-      .catch((err) => setError(err));
+      .catch((err) => setError(err.message));
   };
 
-  const register = () => {
-    console.log("registering");
+  const register = (e) => {
+    e.preventDefault();
     auth
       .createUserWithEmailAndPassword(username, password)
-      .then((response) => console.log(response))
       .catch((err) => setError(err));
   };
 
   return (
     <div>
       <h1>My Login System</h1>
-      <input
-        type="email"
-        id="username"
-        value={username}
-        onChange={(e) => {
-          setUsername(e.target.value);
-        }}
-        placeholder="example@gmail.com"
-      />
-      <input
-        type="password"
-        id="pwd"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="enter password"
-      />
-      <button onClick={login}>Login</button>
-      <button onClick={register}>Register</button>
-      {error && <p>{error.message}</p>}
+      <form>
+        <input
+          type="email"
+          id="username"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+          placeholder="example@gmail.com"
+        />
+        <input
+          type="password"
+          id="pwd"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="enter password"
+        />
+        <button type="submit" onClick={login}>
+          Login
+        </button>
+        <button type="submit" onClick={register}>
+          Register
+        </button>
+        {error && <p>{error.message}</p>}
+      </form>
     </div>
   );
 }
